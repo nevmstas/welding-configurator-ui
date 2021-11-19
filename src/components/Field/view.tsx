@@ -1,54 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EDirection } from "../DirectionMenu/interfaces";
 import { Cell } from "../FieldItem";
+import { FieldProps } from "./interface";
+import { ArrayMaker } from "../../utils/arrayMaker";
+import { calculateMatrixWithDirection } from "./utils";
 
-const Field = () => {
-  const [matrix, setMatrix] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ]);
+const Field: React.FC<FieldProps> = ({ matrixSize }) => {
+  const [matrix, setMatrix] = useState([] as any[][]);
+
+  useEffect(() => {
+    setMatrix(ArrayMaker.makeOneSizeArray(matrixSize));
+  }, [matrixSize]);
 
   const handleCellClick = (x: number, y: number) => (direction: EDirection) => {
-    console.log(x, y);
-    const newMatrix = [...matrix];
-    newMatrix[x][y] = 1;
-    for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix.length; j++) {
-        switch (direction) {
-          case EDirection.LEFT:
-            if (i < x) {
-              newMatrix[i][y] = 1;
-            }
-            if (j < y) {
-              newMatrix[x][j] = 1;
-            }
-            break;
-          case EDirection.STRAIGHT:
-            newMatrix[x][j] = 1;
-            break;
-          case EDirection.RIGHT:
-            if (i <= x) {
-              newMatrix[i][y] = 1;
-            }
-            if (j >= y) {
-              newMatrix[x][j] = 1;
-            }
-            break;
-          default:
-            break;
-        }
-      }
-    }
+    const newMatrix = calculateMatrixWithDirection({
+      matrix,
+      point: { x, y },
+      direction,
+    });
     setMatrix(newMatrix);
   };
 
@@ -59,13 +28,14 @@ const Field = () => {
         flexDirection: "column",
       }}
     >
-      {matrix.map((row, i) => (
-        <div key={i} style={{ display: "flex" }}>
-          {row.map((item, j) => (
-            <Cell key={j} item={item} onClick={handleCellClick(i, j)} />
-          ))}
-        </div>
-      ))}
+      {matrix &&
+        matrix.map((row, i) => (
+          <div key={i} style={{ display: "flex" }}>
+            {row.map((item, j) => (
+              <Cell key={j} item={item} onClick={handleCellClick(i, j)} />
+            ))}
+          </div>
+        ))}
     </div>
   );
 };

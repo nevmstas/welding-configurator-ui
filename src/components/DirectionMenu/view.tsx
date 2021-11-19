@@ -36,7 +36,6 @@ const DirectionMenu: React.FC<DirectionMenuProps> = ({
             marginLeft: "-40px",
             marginTop: "-80px",
             zIndex: "2",
-            // padding: "5px",
             backgroundColor: "lightslategray",
           }}
         >
@@ -49,7 +48,6 @@ const DirectionMenu: React.FC<DirectionMenuProps> = ({
                 margin: "5px",
                 backgroundColor: "lightcyan",
               }}
-              // value={item.value}
               onClick={handleItemMenuClick(item.value)}
             >
               {item.label}
