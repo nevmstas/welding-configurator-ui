@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { EDirection } from "../DirectionMenu/interfaces";
 import { Cell } from "../FieldItem";
 
 const Field = () => {
@@ -17,11 +18,14 @@ const Field = () => {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
 
-  const handleCellClick = (i: number, j: number) => () => {
-    const newMatrix = [...matrix];
-    newMatrix[i][j] = 1;
-    setMatrix(newMatrix);
-  };
+  const handleCellClick =
+    (i: number, j: number) => (direction: EDirection) => {
+      console.log(direction);
+      const newMatrix = [...matrix];
+      console.log(i, j);
+      newMatrix[i][j] = 1;
+      setMatrix(newMatrix);
+    };
 
   return (
     <div
@@ -31,9 +35,9 @@ const Field = () => {
       }}
     >
       {matrix.map((row, i) => (
-        <div style={{ display: "flex" }}>
+        <div key={i} style={{ display: "flex" }}>
           {row.map((item, j) => (
-            <Cell item={item} onClick={handleCellClick(i, j)} />
+            <Cell key={j} item={item} onClick={handleCellClick(i, j)} />
           ))}
         </div>
       ))}
