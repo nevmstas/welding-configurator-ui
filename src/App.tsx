@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { useState } from "react";
 import "./App.css";
 import { Field } from "./components/Field";
@@ -11,15 +13,15 @@ function App() {
   return (
     <div className="App">
       <select
-        style={{
-          marginBottom: "100px",
-          width: "100px",
-          height: "30px",
-          border: "none",
-          backgroundColor: "lightpink",
-          borderRadius: "10px",
-          textAlign: "center",
-        }}
+        css={css`
+          margin-bottom: 100px;
+          width: 100px;
+          height: 30px;
+          border: none;
+          background-color: lightpink;
+          border-radius: 10px;
+          text-align: center;
+        `}
         defaultValue={4}
         onChange={handleSelect}
       >

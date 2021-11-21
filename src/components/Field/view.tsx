@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import React, { useEffect, useState } from "react";
 import { EDirection } from "../DirectionMenu/interfaces";
 import { Cell } from "../FieldItem";
@@ -23,14 +25,19 @@ const Field: React.FC<FieldProps> = ({ matrixSize }) => {
 
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-      }}
+      css={css`
+        display: flex;
+        flex-direction: column;
+      `}
     >
       {matrix &&
         matrix.map((row, i) => (
-          <div key={i} style={{ display: "flex" }}>
+          <div
+            key={i}
+            css={css`
+              display: flex;
+            `}
+          >
             {row.map((item, j) => (
               <Cell key={j} item={item} onClick={handleCellClick(i, j)} />
             ))}

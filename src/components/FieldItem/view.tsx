@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import React, { useState } from "react";
 import { DirectionMenu } from "../DirectionMenu";
 import { CellProps } from "./interfaces";
@@ -16,19 +18,19 @@ const Cell: React.FC<CellProps> = ({ item, onClick }) => {
 
   return (
     <div
-      style={{
-        position: "relative",
-      }}
+      css={css`
+        position: relative;
+      `}
     >
       <div
-        style={{
-          width: "20px",
-          height: "20px",
-          margin: "10px",
-          cursor: "pointer",
-          position: "relative",
-          backgroundColor: color,
-        }}
+        css={css`
+          width: 20px;
+          height: 20px;
+          margin: 10px;
+          cursor: pointer;
+          position: relative;
+          background-color: ${color};
+        `}
         onClick={onMenuOpen}
       ></div>
       <DirectionMenu onClose={onMenuClose} action={onClick} isOpen={toggle} />
