@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React from "react";
+import React, { useMemo } from "react";
+import { SideLine } from "./components/SideLine";
 import { FieldContainerProps } from "./interfaces";
 
 const SIDE_COLORS = {
@@ -11,41 +12,13 @@ const SIDE_COLORS = {
   orange: "orange",
 };
 
-interface SideLineProps {
-  value: string;
-  color: string;
-  vertical?: boolean;
-}
-
-const SideLine: React.FC<SideLineProps> = ({
-  value,
-  color,
-  vertical = false,
-}) => {
-  return (
-    <div
-      css={css`
-        width: 100px;
-        height: 20px;
-        background-color: ${color};
-        border: none;
-        margin: 10px;
-        font-size: 14px;
-        color: white;
-      `}
-    >
-      {value}
-    </div>
-  );
-};
-
 const columnStyle = css`
   display: flex;
   flex-direction: column;
 `;
 
 const FieldContainer: React.FC<FieldContainerProps> = ({ children, size }) => {
-  const getItemsBySize = (): Array<{ value: string; color: string }> => {
+  const items = useMemo((): Array<{ value: string; color: string }> => {
     let flag = 0;
     const arr = [];
 
@@ -54,30 +27,42 @@ const FieldContainer: React.FC<FieldContainerProps> = ({ children, size }) => {
         flag = 0;
       }
       arr.push({
-        value: Object.keys(SIDE_COLORS)[flag],
-        color: Object.values(SIDE_COLORS)[flag],
+        value: Object.values(SIDE_COLORS)[flag],
+        color: Object.keys(SIDE_COLORS)[flag],
       });
 
       flag++;
     }
     return arr;
-  };
+  }, [size]);
+
+  const sideRender = items.map((obj, idx) => (
+    <SideLine key={idx} value={obj.value} color={obj.color} />
+  ));
+
+  const topRender = items.map((obj, idx) => (
+    <SideLine key={idx} value={obj.value} color={obj.color} vertical={true} />
+  ));
 
   return (
     <div css={columnStyle}>
-      <div></div>
+      <div
+        css={css`
+          display: flex;
+          margin-left: "100px";
+          justify-content: center;
+        `}
+      >
+        {topRender}
+      </div>
       <div
         css={css`
           display: flex;
         `}
       >
-        <div css={columnStyle}>
-          {getItemsBySize().map((obj, idx) => (
-            <SideLine key={idx} value={obj.value} color={obj.color} />
-          ))}
-        </div>
+        <div css={columnStyle}>{sideRender}</div>
         <div>{children}</div>
-        <div></div>
+        <div css={columnStyle}>{sideRender}</div>
       </div>
     </div>
   );
