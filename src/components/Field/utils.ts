@@ -24,18 +24,18 @@ export const calculateMatrixWithDirection = ({
             newMatrix[i][y] = 1;
           }
           if (j < y) {
-            newMatrix[x][j] = 1;
+            newMatrix[x][j] = 2;
           }
           break;
         case EDirection.STRAIGHT:
-          newMatrix[x][j] = 1;
+          newMatrix[x][j] = 2;
           break;
         case EDirection.RIGHT:
           if (i <= x) {
             newMatrix[i][y] = 1;
           }
           if (j >= y) {
-            newMatrix[x][j] = 1;
+            newMatrix[x][j] = 2;
           }
           break;
         default:

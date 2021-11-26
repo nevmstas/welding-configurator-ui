@@ -1,10 +1,11 @@
 import { css } from "@emotion/react";
 import React, { useState } from "react";
 import { DirectionMenu } from "../DirectionMenu";
+import { lineFactory } from "./components/DirectionLines";
 import { CellProps } from "./interfaces";
 
 const Cell: React.FC<CellProps> = ({ item, onClick }) => {
-  const color = item ? "lightpink" : "lightgreen";
+  // const color = item ? "lightpink" : "lightgreen";
 
   const [toggle, setToggle] = useState(false);
   const onMenuClose = () => {
@@ -28,10 +29,12 @@ const Cell: React.FC<CellProps> = ({ item, onClick }) => {
           margin: 10px;
           cursor: pointer;
           position: relative;
-          background-color: ${color};
+          background-color: lightgreen;
         `}
         onClick={onMenuOpen}
-      ></div>
+      >
+        {lineFactory(item)}
+      </div>
       <DirectionMenu onClose={onMenuClose} action={onClick} isOpen={toggle} />
     </div>
   );

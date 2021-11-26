@@ -48,6 +48,9 @@ const DirectionMenu: React.FC<DirectionMenuProps> = ({
                 cursor: pointer;
                 margin: 5px;
                 background-color: lightcyan;
+                :hover {
+                  background-color: lightgoldenrodyellow;
+                }
               `}
               onClick={handleItemMenuClick(item.value)}
             >

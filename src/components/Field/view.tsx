@@ -14,7 +14,7 @@ const Field: React.FC<FieldProps> = ({ matrixSize }) => {
     setMatrix(ArrayMaker.makeOneSizeArray(matrixSize));
   }, [matrixSize]);
 
-  const handleCellClick = (x: number, y: number) => (direction: EDirection) => {
+  const makeCellClickHandler = (x: number, y: number) => (direction: EDirection) => {
     const newMatrix = calculateMatrixWithDirection({
       matrix,
       point: { x, y },
@@ -40,7 +40,7 @@ const Field: React.FC<FieldProps> = ({ matrixSize }) => {
               `}
             >
               {row.map((item, j) => (
-                <Cell key={j} item={item} onClick={handleCellClick(i, j)} />
+                <Cell key={j} item={item} onClick={makeCellClickHandler(i, j)} />
               ))}
             </div>
           ))}
