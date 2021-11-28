@@ -5,8 +5,6 @@ import { lineFactory } from "./components/DirectionLines";
 import { CellProps } from "./interfaces";
 
 const Cell: React.FC<CellProps> = ({ item, onClick }) => {
-  // const color = item ? "lightpink" : "lightgreen";
-
   const [toggle, setToggle] = useState(false);
   const onMenuClose = () => {
     setToggle(false);

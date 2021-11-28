@@ -14,8 +14,9 @@ export const calculateMatrixWithDirection = ({
   point: { x, y },
   direction,
 }: IProps) => {
+  console.log(matrix);
   const newMatrix = [...matrix];
-  newMatrix[x][y] = 1;
+  // newMatrix[x][y] = 1;
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix.length; j++) {
       switch (direction) {
@@ -26,6 +27,7 @@ export const calculateMatrixWithDirection = ({
           if (j < y) {
             newMatrix[x][j] = 2;
           }
+          newMatrix[x][y] = 5;
           break;
         case EDirection.STRAIGHT:
           newMatrix[x][j] = 2;
@@ -37,11 +39,13 @@ export const calculateMatrixWithDirection = ({
           if (j >= y) {
             newMatrix[x][j] = 2;
           }
+          newMatrix[x][y] = 4;
           break;
         default:
           break;
       }
     }
   }
+  console.log(newMatrix);
   return newMatrix;
 };
